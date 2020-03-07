@@ -5,7 +5,13 @@
     <color name="colorAccent">#00AAFF</color>
     
     <color name="bg_ad">#00AAFF</color>
+    <color name="bg_default">#FFFFFF</color>
     <color name="divide_line">#F3F3F3</color>
+    <color name="bg_navigation">#FFFFFF</color>
 
-    <color name="text_black">#383838</color>
+    <color name="text_dark">#2D2D2D</color>
+    <color name="text_light">#A7A7A7</color>
+
+    <color name="default_item">#16000000</color>
+
 </resources>

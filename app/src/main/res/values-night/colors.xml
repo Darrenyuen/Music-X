@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1F2326</color>
+    <color name="colorPrimaryDark">#1F2326</color>
+    <color name="colorAccent">#1F2326</color>
+
+    <color name="bg_ad">#1F2326</color>
+    <color name="bg_default">#1F2326</color>
+    <color name="divide_line">#999D90</color>
+    <color name="bg_navigation">#A7A7A7</color>
+
+    <color name="text_dark">#E4E8E7</color>
+    <color name="text_light">#999DA0</color>
+
+    <color name="default_item">#2D3134</color>
+</resources>

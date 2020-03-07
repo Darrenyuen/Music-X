@@ -1,44 +1,77 @@
-package com.yuan.music_x;
+package com.yuan.music_x.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yuan.music_x.util.LogUtil;
+import com.google.android.material.tabs.TabLayout;
+import com.yuan.music_x.MineFragment;
+import com.yuan.music_x.MvFragment;
+import com.yuan.music_x.R;
+import com.yuan.music_x.SearchActivity;
+import com.yuan.music_x.square.SquareFragment;
+import com.yuan.music_x.adapter.MainViewPagerAdapter;
+import com.yuan.music_x.util.SharePreferenceUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 //    @BindView(R.id.drawLayout)
 
     DrawerLayout drawerLayout;
+    TabLayout tabLayout;
     ImageView drawerImageView, searchImageView;
+    ViewPager mainViewPager;
+    LinearLayout nightModeLayout;
+    TextView modeTextView;
+    List<Fragment> fragmentList;
 
-    private long firstTime;
+    private long firstExitTime;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tabLayout = findViewById(R.id.tabLayout);
         drawerLayout = findViewById(R.id.drawLayout);
         drawerImageView = findViewById(R.id.drawNavImageView);
         searchImageView = findViewById(R.id.searchImageView);
+        mainViewPager = findViewById(R.id.mainViewPager);
+        nightModeLayout = findViewById(R.id.night_mode);
+        modeTextView = findViewById(R.id.nightModeTextView);
+        if (SharePreferenceUtil.getInstance(this).getMode() == 1) modeTextView.setText(R.string.night_mode);
+        else if (SharePreferenceUtil.getInstance(this).getMode() == 2) modeTextView.setText(R.string.day_mode);
         drawerLayout.setOnClickListener(this);
         drawerImageView.setOnClickListener(this);
         searchImageView.setOnClickListener(this);
-
+        nightModeLayout.setOnClickListener(this);
+        fragmentList = new LinkedList<>();
+        fragmentList.add(new MineFragment());
+        fragmentList.add(new SquareFragment());
+        fragmentList.add(new MvFragment());
+        mainViewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT, fragmentList));
+        mainViewPager.setCurrentItem(1);
+        tabLayout.setupWithViewPager(mainViewPager);
     }
 
 //    @OnClick({R.id.drawNavImageView, R.id.searchImageView, R.id.navigation, R.id.setting, R.id.exit})
@@ -51,6 +84,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.night_mode:
+                //获取当前的模式，设置相反的模式，这里只使用了，夜间和非夜间模式
+                int currentMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                if (currentMode != Configuration.UI_MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    SharePreferenceUtil.getInstance(this).saveMode(2);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    SharePreferenceUtil.getInstance(this).saveMode(1);
+                }
+
+                recreate();//需要recreate才能生效,需要对数据进行保存
+                break;
         }
     }
 
@@ -61,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
-            if (System.currentTimeMillis() - firstTime >= 2000) {
+            if (System.currentTimeMillis() - firstExitTime >= 2000) {
                 Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
-                firstTime = System.currentTimeMillis();
+                firstExitTime = System.currentTimeMillis();
                 return true;
             } else {
                 finish();
@@ -72,4 +118,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
