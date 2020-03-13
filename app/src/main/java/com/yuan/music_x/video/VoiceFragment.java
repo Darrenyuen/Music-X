@@ -1,4 +1,4 @@
-package com.yuan.music_x;
+package com.yuan.music_x.voice;
 
 
 import android.os.Bundle;
@@ -9,16 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yuan.music_x.R;
 import com.yuan.music_x.base.BaseLazyFragment;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MvFragment extends BaseLazyFragment {
+public class VoiceFragment extends BaseLazyFragment {
 
 
-    public MvFragment() {
+    public VoiceFragment() {
         // Required empty public constructor
     }
 
@@ -27,7 +28,16 @@ public class MvFragment extends BaseLazyFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mv, container, false);
+        return inflater.inflate(R.layout.fragment_voice, container, false);
     }
 
+    @Override
+    protected void fetchData() {
+
+    }
+
+    @Override
+    protected void showErrorPage() {
+
+    }
 }

@@ -45,8 +45,12 @@ public class MineFragment extends BaseLazyFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.d(TAG, "setUserVisibleHint: ");
-        super.setUserVisibleHint(isVisibleToUser);
+    protected void fetchData() {
+
+    }
+
+    @Override
+    protected void showErrorPage() {
+
     }
 }

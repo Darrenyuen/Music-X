@@ -1,8 +1,10 @@
-package com.yuan.music_x;
+package com.yuan.music_x.search;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.yuan.music_x.R;
 
 public class SearchActivity extends AppCompatActivity {
 
