@@ -15,7 +15,9 @@ public class ActivityStarter {
     public static ActivityStarter getInstance() {
         if (instance == null) {
             synchronized (ActivityStarter.class) {
-                instance = new ActivityStarter();
+                if (instance == null) {
+                    instance = new ActivityStarter();
+                }
             }
         }
         return instance;

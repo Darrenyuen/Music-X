@@ -5,8 +5,12 @@ package com.yuan.music_x.util;
  * 2020/2/27
  **/
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * 字符串和Java类的转换工具
@@ -14,8 +18,8 @@ import com.google.gson.GsonBuilder;
 public class GsonUtil {
 
     private static Gson createGson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        return gsonBuilder.serializeNulls().create();
+        Gson gson = new Gson();
+        return gson;
     }
 
     public static String toJson(Object object) {
