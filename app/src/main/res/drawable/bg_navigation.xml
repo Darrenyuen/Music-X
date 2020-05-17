@@ -3,5 +3,5 @@
     <corners
         android:topRightRadius="10dp"
         android:topLeftRadius="10dp"/>
-    <solid android:color="#ffffff"/>
+    <solid android:color="@color/bg_navigation"/>
 </shape>

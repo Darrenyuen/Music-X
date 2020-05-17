@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Music-X</string>
+    <string name="load_error">加载失败，轻触屏幕重试</string>
 
+    <!-- navigation   -->
     <string name="night_mode">夜间模式</string>
     <string name="day_mode">日间模式</string>
     <string name="setting">设置</string>
     <string name="logout">退出</string>
+
+    <!-- 个人页面   -->
+    <string name="local_music">本地音乐</string>
+    <string name="download_manager">下载管理</string>
 
     <string name="ad">广告位招租</string>
 
