@@ -22,7 +22,7 @@
 
             <TextView
                 android:text="@string/ad"
-                android:textColor="@color/text_black"
+                android:textColor="@color/text_dark"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"/>
@@ -39,6 +39,7 @@
                     android:layout_height="1px"/>
 
                 <LinearLayout
+                    android:background="@color/bg_navigation"
                     android:id="@+id/bottomView"
                     android:orientation="horizontal"
                     android:gravity="center"
@@ -57,9 +58,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
+                            android:id="@+id/nightModeTextView"
                             android:text="@string/night_mode"
                             android:layout_marginLeft="5dp"
-                            android:textColor="@color/text_black"
+                            android:textColor="@color/text_dark"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -79,7 +81,7 @@
                         <TextView
                             android:text="@string/setting"
                             android:layout_marginLeft="5dp"
-                            android:textColor="@color/text_black"
+                            android:textColor="@color/text_dark"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -99,7 +101,7 @@
                         <TextView
                             android:text="@string/logout"
                             android:layout_marginLeft="5dp"
-                            android:textColor="@color/text_black"
+                            android:textColor="@color/text_dark"
                             android:gravity="center"
                             android:textSize="14sp"
                             android:layout_width="wrap_content"

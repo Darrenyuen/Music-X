@@ -26,6 +26,8 @@ public class VideoLayoutAdapter extends RecyclerView.Adapter<VideoLayoutAdapter.
 
     private List<VideoData.DataBean.ListBean> videoDataList;
 
+    private OnItemClickListener onItemClickListener;
+
     public VideoLayoutAdapter(Context context, List<VideoData.DataBean.ListBean> videoDataList) {
         super();
         this.context = context;
@@ -39,9 +41,17 @@ public class VideoLayoutAdapter extends RecyclerView.Adapter<VideoLayoutAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         VideoData.DataBean.ListBean listBean = videoDataList.get(position);
         Glide.with(context).load(listBean.getImgUrl()).into(holder.videoImage);
+        if (onItemClickListener != null) {
+            holder.videoImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -58,5 +68,13 @@ public class VideoLayoutAdapter extends RecyclerView.Adapter<VideoLayoutAdapter.
             videoImage = itemView.findViewById(R.id.videoImage);
         }
 
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, int position);
     }
 }

@@ -54,7 +54,7 @@ public class CircleImageView extends ImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Bitmap bitmap = drawableToBitmap(getDrawable());
-
+        if (bitmap == null) return;
         BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         //计算缩放比例
         mScale = (mRadius * 2.0f) / Math.min(bitmap.getHeight(), bitmap.getWidth());
@@ -71,6 +71,7 @@ public class CircleImageView extends ImageView {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             return bitmapDrawable.getBitmap();
         }
+        if (drawable == null) return null;
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);

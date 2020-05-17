@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yuan.music_x.util.NetWorkUtil;
+
 /**
  * yuan
  * 2020/2/27
@@ -69,16 +71,20 @@ public abstract class BaseLazyFragment extends Fragment {
     }
 
     protected void tryToFetchData(boolean isForceUpdate) {
-        Log.d(TAG, "tryToFetchData: " + isVisibleToUser + isViewInitiated + isDataInitiated + isForceUpdate);
+        Log.d(TAG, "tryToFetchData: " + isVisibleToUser + " " + isViewInitiated + " " + isDataInitiated + " " + isForceUpdate);
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || isForceUpdate)) {
-            fetchData();
-            isDataInitiated = true;
+            if (NetWorkUtil.isNetWorkConnected(getContext())) {
+                fetchData();
+                isDataInitiated = true;
+            } else {
+                showErrorPage();
+            }
         }
     }
 
-    protected void fetchData(){
-        Log.d(TAG, "fetchData: already fetch data");
-    }
+    protected abstract void fetchData();
+
+    protected abstract void showErrorPage();
 
     @Override
     public void onDestroyView() {
@@ -88,13 +94,11 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "onDetach: ");
     }
 
     @Override
@@ -111,25 +115,21 @@ public abstract class BaseLazyFragment extends Fragment {
 
     @Override
     public void onStart() {
-        Log.d(TAG, "onStart: ");
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Log.d(TAG, "onResume: ");
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        Log.d(TAG, "onPause: ");
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.d(TAG, "onStop: ");
         super.onStop();
     }
 

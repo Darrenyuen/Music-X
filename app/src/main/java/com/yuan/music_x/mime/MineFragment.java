@@ -1,4 +1,4 @@
-package com.yuan.music_x;
+package com.yuan.music_x.mime;
 
 
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yuan.music_x.R;
 import com.yuan.music_x.base.BaseLazyFragment;
 
 

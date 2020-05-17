@@ -1,5 +1,6 @@
 package com.yuan.music_x.adapter;
 
+import android.content.pm.LauncherApps;
 import android.media.Image;
 import android.util.Log;
 import android.view.View;

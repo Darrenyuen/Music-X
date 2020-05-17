@@ -7,9 +7,10 @@ import android.os.CountDownTimer;
 import android.view.WindowManager;
 
 import com.yuan.music_x.R;
+import com.yuan.music_x.base.BaseActivity;
 import com.yuan.music_x.util.ActivityStarter;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private String TAG = this.getClass().getSimpleName();
 
@@ -18,8 +19,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+//        setContentView(R.layout.activity_splash);
         startCountDownTime();
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_splash;
     }
 
     private void startCountDownTime() {

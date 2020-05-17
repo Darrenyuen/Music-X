@@ -1,6 +1,5 @@
 package com.yuan.music_x.main;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,24 +15,23 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
-import com.yuan.music_x.MineFragment;
-import com.yuan.music_x.MvFragment;
+import com.yuan.music_x.mime.MineFragment;
+import com.yuan.music_x.video.VideoFragment;
 import com.yuan.music_x.R;
-import com.yuan.music_x.SearchActivity;
+import com.yuan.music_x.search.SearchActivity;
+import com.yuan.music_x.base.BaseActivity;
 import com.yuan.music_x.square.SquareFragment;
 import com.yuan.music_x.adapter.MainViewPagerAdapter;
 import com.yuan.music_x.util.SharePreferenceUtil;
 
-import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 //    @BindView(R.id.drawLayout)
 
@@ -45,13 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView modeTextView;
     List<Fragment> fragmentList;
 
-    private long firstExitTime;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabLayout);
         drawerLayout = findViewById(R.id.drawLayout);
         drawerImageView = findViewById(R.id.drawNavImageView);
@@ -68,13 +63,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentList = new LinkedList<>();
         fragmentList.add(new MineFragment());
         fragmentList.add(new SquareFragment());
-        fragmentList.add(new MvFragment());
+        fragmentList.add(new VideoFragment());
         mainViewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_SET_USER_VISIBLE_HINT, fragmentList));
         mainViewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(mainViewPager);
     }
 
-//    @OnClick({R.id.drawNavImageView, R.id.searchImageView, R.id.navigation, R.id.setting, R.id.exit})
+    @Override
+    public int getContentView() {
+        return R.layout.activity_main;
+    }
+
+    //    @OnClick({R.id.drawNavImageView, R.id.searchImageView, R.id.navigation, R.id.setting, R.id.exit})
     public void onClick(@NotNull View view) {
         switch (view.getId()) {
             case R.id.drawNavImageView:
@@ -103,18 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
-            }
-            if (System.currentTimeMillis() - firstExitTime >= 2000) {
-                Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
-                firstExitTime = System.currentTimeMillis();
-                return true;
-            } else {
-                finish();
-                System.exit(0);
-            }
+            //相当于点击home键
+            Intent intent= new Intent(Intent.ACTION_MAIN);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
